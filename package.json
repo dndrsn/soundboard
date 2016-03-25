@@ -1,0 +1,33 @@
+{
+  "name": "soundboard2",
+  "description": "It's a soundboard",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Dan Anderson",
+  "repository": "",
+  "license": "",
+  "main": "app.js",
+  "dependencies": {
+    "command-line-args": "^2.1.6",
+    "glob": "^7.0.3",
+    "http-server": "^0.9.0",
+    "livereload": "^0.4.1",
+    "nunjucks": "^2.4.1",
+    "rimraf": "^2.5.2",
+    "shelljs": "^0.6.0",
+    "watch": "^0.17.1"
+  },
+  "config": {},
+  "scripts": {
+    "clean": "rimraf pub/*",
+    "build:html": "node scripts/html.js",
+    "watch:html": "npm run -s build:html && node scripts/html.js --watch",
+    "build:assets": "node scripts/assets.js",
+    "watch:assets": "npm run -s build:assets && node scripts/assets.js --watch",
+    "build": "npm run -s build:html && npm run -s build:assets",
+    "watch": "npm run -s watch:html & npm run -s watch:assets",
+    "server": "http-server -p 3000 pub/",
+    "live-reload": "livereload pub --port 3001",
+    "dev": "npm run -s clean && (npm run -s watch & npm run -s server & npm run -s live-reload)"
+  }
+}

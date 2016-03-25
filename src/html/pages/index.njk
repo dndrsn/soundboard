@@ -1,0 +1,81 @@
+{% set clips = {
+    laugh_track:      { label: 'Laugh Track' },
+    game_day_bucket:  { label: 'Game Day Bucket' },
+    dog:              { label: 'FF: YTMND' },
+    yes:              { label: 'FF: Yes! Yes!' },
+    punch_the_keys:   { label: 'FF: Punch the keys!' },
+    mad:              { label: 'Brad: I’m not mad' },
+    tough:            { label: 'Brad: That’s Tough' },
+    they_love_you:    { label: 'Brad: They love you' },
+    so_many_feelings: { label: 'Brad: So many feelings' },
+    care_so_much:     { label: 'Brad: Care so much' },
+    sigh:             { label: 'Brad: (Sigh)' },
+    i_mean_that:      { label: 'Brad: I mean that' },
+    means_so_much:    { label: 'Brad: Means so much' }
+} %}
+
+
+<!DOCTYPE html>
+<html id="Soundboard">
+
+<head>
+  <title>The Soundboard</title>
+
+  <!-- Content -->
+  <meta charset="utf-8" />
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+
+  <!-- Favicon -->
+  <!-- <link rel="shortcut icon" href="./favicon.ico"> -->
+
+  <!-- Mobile Optimization -->
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta http-equiv="cleartype" content="on" />
+
+  <!-- css -->
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/add2home.css">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+  <header>
+    <h1>The Soundboard</h1>
+  </header>
+  <section id="main">
+    <div id="soundboard">
+      <ul class="buttons">
+        <li>
+          <a class="button random">RANDOMIZER</a>
+        </li>
+        {% for clip, clipMeta in clips %}
+        <li>
+          <a class="button" data-clip="{{ clip }}">{{ clipMeta.label }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+  <footer></footer>
+
+
+  <!-- js -->
+  <script>window.soundClipData = {{ clips | dump | safe }};</script>
+  <script src='./js/lib/jquery-1.9.1.min.js'></script>
+  <script src='./js/lib/fastclick-mod.js'></script>
+  <script src='./js/lib/howler.js'></script>
+  <script src='./js/lib/add2home.js'></script>
+  <script src='./js/add2home-conf.js'></script>
+  <script src="./js/soundclips.js"></script>
+  <script src="./js/script.js"></script>
+
+  <!-- live reload -->
+  <script src="//localhost:3001/livereload.js?snipver=1"></script>
+
+
+</body>
+
+</html>
+
