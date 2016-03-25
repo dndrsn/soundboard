@@ -1,12 +1,11 @@
 {
-  "name": "soundboard2",
-  "description": "It's a soundboard",
+  "name": "soundboard",
+  "description": "It's a soundboard.  Kinda dumb.",
   "version": "1.0.0",
   "private": true,
   "author": "Dan Anderson",
-  "repository": "",
-  "license": "",
-  "main": "app.js",
+  "repository": "https://github.com/dndrsn/soundboard.git",
+  "license": "ISC",
   "dependencies": {
     "command-line-args": "^2.1.6",
     "glob": "^7.0.3",
@@ -14,7 +13,6 @@
     "livereload": "^0.4.1",
     "nunjucks": "^2.4.1",
     "rimraf": "^2.5.2",
-    "s3": "^4.4.0",
     "s3-cli": "^0.13.0",
     "shelljs": "^0.6.0",
     "watch": "^0.17.1"
@@ -31,7 +29,7 @@
     "server": "http-server -p 3000 pub/",
     "live-reload": "livereload pub --port 3001",
     "dev": "npm run -s clean && (npm run -s watch & npm run -s server & npm run -s live-reload)",
-    "sync": "s3-cli sync --config .s3cfg --acl-public --delete-removed pub/ s3://soundboard.dananderson.net/",
-    "deploy": "npm run -s clean && npm run -s build && npm run -s sync"
+    "s3-sync": "s3-cli sync --config .s3cfg --acl-public --delete-removed pub/ s3://soundboard.dananderson.net/",
+    "deploy": "npm run -s clean && npm run -s build && npm run -s s3-sync"
   }
 }
