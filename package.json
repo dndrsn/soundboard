@@ -19,17 +19,12 @@
   },
   "config": {},
   "scripts": {
-    "clean": "rimraf pub/*",
-    "build:html": "node scripts/html.js",
-    "watch:html": "npm run -s build:html && node scripts/html.js --watch",
-    "build:assets": "node scripts/assets.js",
-    "watch:assets": "npm run -s build:assets && node scripts/assets.js --watch",
-    "build": "npm run -s build:html && npm run -s build:assets",
-    "watch": "npm run -s watch:html & npm run -s watch:assets",
-    "server": "http-server -p 3000 pub/",
-    "live-reload": "livereload pub --port 3001",
-    "dev": "npm run -s clean && (npm run -s watch & npm run -s server & npm run -s live-reload)",
+    "clean": "node scripts/tasks.js clean",
+    "build": "node scripts/tasks.js build",
+    "watch": "node scripts/tasks.js watch",
+    "server": "http-server -p 3000 pub/ & livereload pub --port 3001",
+    "dev": "npm run -s clean && npm run -s build && (npm run -s watch & npm run -s server)",
     "s3-sync": "s3-cli sync --config .s3cfg --acl-public --delete-removed pub/ s3://soundboard.dananderson.net/",
-    "deploy": "npm run -s clean && npm run -s build && npm run -s s3-sync"
+    "deploy": "npm run -s clean && npm run -s build -- --env=prod && npm run -s s3-sync"
   }
 }

@@ -1,12 +1,5 @@
 var shell = require('shelljs');
-var fs = require('fs');
-var commandLineArgs = require('command-line-args');
-var watch = require('watch');
-
-var config = {
-  source: ['src/css', 'src/img', 'src/js', 'src/media'],
-  dest: 'pub/',
-};
+var _watch = require('watch');
 
 
 function log(text) {
@@ -14,24 +7,23 @@ function log(text) {
 }
 
 
-function buildSrc() {
-  shell.mkdir('-p', config.dest);
-  config.source.forEach(function(srcDir) {
+function build(srcDirs, pubDir) {
+  srcDirs.forEach(function(srcDir) {
     log('copying ' + srcDir);
-    shell.cp('-rf', srcDir, config.dest);
+    shell.cp('-rf', srcDir, pubDir);
     log('copied ' + srcDir);
   });
 }
 
 
-function watchSrc() {
+function watch(srcDirs, pubDir) {
   log("watching Assets");
-  config.source.forEach(function(dir){
+  srcDirs.forEach(function(dir){
     log("watching - " + dir);
-    watch.watchTree(dir, function (f, curr, prev) {
+    _watch.watchTree(dir, function (f, curr, prev) {
       if(typeof f === "string") {
         log("file changed - " + f);
-        var destFile = f.replace(/^src\//, config.dest);
+        var destFile = f.replace(/^src\//, pubDir);
         shell.cp('-f', f, destFile);
         log("file copied - " + destFile);
       }
@@ -40,13 +32,10 @@ function watchSrc() {
 }
 
 
-function main() {
-  var options = commandLineArgs([
-    { name: 'watch', alias: 'w', type: Boolean },
-  ]).parse();
-  if(options.watch) watchSrc();
-  else buildSrc();
-}
+
+module.exports = {
+  build: build,
+  watch: watch,
+};
 
 
-main();

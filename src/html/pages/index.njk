@@ -71,9 +71,10 @@
   <script src="./js/soundclips.js"></script>
   <script src="./js/script.js"></script>
 
+  {% if env == 'dev' %}
   <!-- live reload -->
   <script src="//localhost:3001/livereload.js?snipver=1"></script>
-
+  {% endif %}
 
 </body>
 
