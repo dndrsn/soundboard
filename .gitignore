@@ -2,3 +2,4 @@ node_modules
 pub
 .s3cfg
 todo.txt
+.DS_Store
